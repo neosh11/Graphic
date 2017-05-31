@@ -941,12 +941,18 @@ void reshape( int width, int height )
 	//     	that the same part of the scene is visible across the width of
 	//     	the window.
  
-	GLfloat nearDist = 0.01;
+	GLfloat nearDist = 0.001;
 	
-	projection = Frustum(-nearDist*(float)width/(float)height,
-                     	nearDist*(float)width/(float)height,
-                     	-nearDist, nearDist,
-                     	nearDist, 100.0);
+	if(width > height)
+    	projection = Frustum(-nearDist*(float)width/(float)height,
+                         nearDist*(float)width/(float)height,
+                         -nearDist, nearDist,
+                         nearDist, 100.0);
+   	else
+    	projection = Frustum(-nearDist, nearDist,
+                         -nearDist*(float)height/(float)width,
+                         nearDist*(float)height/(float)width,                         
+                         nearDist, 100.0);
 }
  
 //----------------------------------------------------------------------------
